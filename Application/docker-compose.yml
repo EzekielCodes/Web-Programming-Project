@@ -1,0 +1,85 @@
+version: '3'
+
+services:
+
+  php:
+    build: docker
+    container_name: "phpfpm"
+    volumes:
+      - ./docker/webcontent:/var/www/html/
+      #- ./docker/php:/usr/local/etc/php/php.ini
+    links:
+      - mysqldb
+
+  # php:
+  #   image: php:7.2-fpm
+  #   container_name: "phpfpm"
+  #   volumes:
+  #     - ./docker/webcontent:/var/www/html/
+  #     - ./docker/php:/usr/local/etc/php/php.ini
+  #   command: 
+  #     - /bin/bash
+  #     - -c
+  #     - |
+  #       docker-php-ext-install pdo_mysql
+  #       docker-php-ext-enable pdo_mysql
+  #   links:
+  #     - mysqldb
+
+  nginx:
+    image: nginx:alpine
+    container_name: "webserver"
+    volumes:
+      - ./docker/webcontent:/var/www/html/
+      - ./docker/nginx:/etc/nginx/conf.d/
+    ports:
+      - "8000:80"
+    links: 
+      - mysqldb
+      - php
+
+
+
+  mysqldb:
+    image: mysql:8.0
+    container_name: "mysql"
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+     - "3307:3306"
+    volumes:
+     - "./docker/sql-data:/var/lib/mysql"
+     - "./docker/database.sql:/docker-entrypoint-initdb.d/dump.sql"
+    environment:
+     - MYSQL_ROOT_PASSWORD=Azerty123
+
+
+
+
+  # mailhog:
+  #   image: mailhog/mailhog
+  #   container_name: 'mailhog'
+  #   ports:
+  #     - "1025:1025"
+  #     - "8025:8025"
+
+  # myadmin:
+  #   image: phpmyadmin/phpmyadmin
+  #   container_name: phpmyadmin
+  #   ports:
+  #       - "8000:8000" 
+  #   environment:
+  #       - PMA_ARBITRARY=0
+  #       - PMA_HOST=mysqldb
+  #       - UPLOAD_LIMIT=50M
+  #   restart: always
+  #   depends_on:
+  #       - mysqldb
+
+  # nominatim:
+  #   image: mediagis/nominatim:4.1
+  #   container_name: "nominatim"
+  #   ports:
+  #     - "8080:8080"
+  #   environment:
+  #     - PBF_URL=./docker/nominatim
