@@ -134,6 +134,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             
             // Attempt to execute the prepared statement
             if($stmt->execute()){
+                //send mail
+                $to = $_POST["email"];
+                $subject = 'Registered Succesfully';
+                $message = 'This is a mail confirming your registration';
+                $headers = "From: LocalHost@email-address.com\r\n";
+                if (mail($to, $subject, $message, $headers)) {
+                echo "SUCCESS";
+                } else {
+                echo "ERROR";
+                }
                 // Redirect to login page
                 header("location: login.php");
             } else{
