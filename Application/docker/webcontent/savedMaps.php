@@ -1,7 +1,39 @@
+<?php
+session_start();
+// Include config file
+require_once "includes/config.php";
+
+/**
+ * Includes
+ * ----------------------------------------------------------------
+ */
+
+// config & functions
+//require_once 'includes/config.php';
+require_once 'includes/functions.php';
+
+
+/**
+ * Database Connection
+ * ----------------------------------------------------------------
+ */
+
+// @TODO
+    $pdo = getDatabase();
+    
+    $param_id = $_SESSION["id"];
+    // SQL query to select data from database
+    $sql = " SELECT * FROM cordinaten Where users_id=?";
+    
+    $result = $pdo->prepare($sql);
+    $result->execute([$param_id]);
+  
+?>
+
 <!doctype html>
 <html>
 <head>
-  <title>Nominatim-Leaflet</title>
+  <title>Saved Maps</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -23,6 +55,32 @@
     </div>
   </div>
 </div>
+<div class="col-8">
+    <!-- TABLE CONSTRUCTION -->
+    <table>
+            <tr>
+                <th>Name</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+            </tr>
+            <!-- PHP CODE TO FETCH DATA FROM ROWS -->
+            <?php
+                // LOOP TILL END OF DATA
+                while($rows=$result->fetch(PDO::FETCH_ASSOC))
+                {
+            ?>
+            <tr>
+                <!-- FETCHING DATA FROM EACH
+                    ROW OF EVERY COLUMN -->
+                <td><?php echo $rows['name'];?></td>
+                <td><?php echo $rows['latitude'];?></td>
+                <td><?php echo $rows['longitude'];?></td>
+            </tr>
+            <?php
+                }
+            ?>
+        </table>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -36,6 +94,6 @@
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
         integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
         crossorigin=""></script>
-<script src="./app/index.js"></script>
+
 </body>
 </html>

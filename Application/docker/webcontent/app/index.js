@@ -2,8 +2,9 @@ const searchInput = document.getElementById('search');
 const resultList = document.getElementById('result-list');
 const mapContainer = document.getElementById('map-container');
 const currentMarkers = [];
-$latidute = $longitude = "";
+$latidude = $longidude = "";
 $latidute_err = $longitude_err = "";
+$Countryname = "";
 
 const map = L.map(mapContainer).setView([20.13847, 1.40625], 2);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -20,11 +21,16 @@ document.getElementById('search-button').addEventListener('click', () => {
 });
 
 document.getElementById('save-button').addEventListener('click', () => {
-    console.log("save clicked");
-    console.log(latidute);
-    console.log(longitude);
+    const name = document.getElementById('search').value;
+    document.getElementById('inputName').value = name;
+    document.getElementById('inputLatitude').value = latidude;
+    document.getElementById('inputLongitude').value = longitude;
     
+    console.log(name);
+    console.log(latidude);
+    console.log(longitude);
 });
+
 
 function setResultList(parsedResult) {
     resultList.innerHTML = "";
@@ -33,8 +39,9 @@ function setResultList(parsedResult) {
     }
     map.flyTo(new L.LatLng(20.13847, 1.40625), 2);
     for (const result of parsedResult) { 
-        latidute = result.lat;
-        longitude = result.lon;      
+        latidude = result.lat;
+        longitude = result.lon; 
+        Countryname = result.display_name;     
         const li = document.createElement('li');
         li.classList.add('list-group-item', 'list-group-item-action');
         li.innerHTML = JSON.stringify({
