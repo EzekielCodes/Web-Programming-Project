@@ -36,10 +36,6 @@ require_once 'includes/functions.php';
         $stmt->execute([$name, $latitude,$longitude,(new DateTime())->format('Y-m-d H:i:s'),$param_id]);
       
     }
-   
-      
-     
-
 
 ?>
 <!doctype html>
@@ -52,40 +48,50 @@ require_once 'includes/functions.php';
         integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
         crossorigin=""/>
 </head>
-<body>
+<body style="margin: 50px">
 <div class="container pt-5 pb-5">
   <div class="row justify-content-md-center">
     <input name = "search" id="search" style="width: 350px;" type="text">
     <button type="button" class="ml-5 btn btn-primary" id="search-button">Search</button>
-    <button type="button" class="ml-5 btn btn-primary" id="save-button">Save</button>
+    <button type="button" class="ml-5 btn btn-primary" id="save-button">Add to Form</button>
+    <a class="ml-5 btn btn-primary"  href='welcome.php'>Home</a>
   </div>
 
-  <div class="row mt-4">
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-      <label for="inputCityName">Name</label>
-      <input type="text" class="form-control" id="inputName"  name = "inputName">
-      <small id="nameHelp" class="form-text text-muted">Don't write anything.</small>
-
-      <label for="inputCityLatitude">Latitude</label>
-      <input type="text" name = "inputlatitude" class="form-control" id="inputLatitude">
-
-      <label for="inputCityLongitude">longitude</label>
-      <input name = "inputlongitude" type="text" class="form-control" id="inputLongitude">
-
-
-      <input type = "hidden" name= "moduleAction" value="processName" />
-      <input type="submit" id = "btnSubmit" class="btn btn-primary" value="Send">
-  </form>
-  </div>
+</div>
   
-  <div class="row mt-5">
-    <ul id="result-list" class="col-4 list-group">
-    </ul>
-    <div class="col-8">
+<div class= "row">
+  <div class="col-8">  
+    <div>
       <div id="map-container" style="height: 75vh;"></div>
     </div>
   </div>
+
+  <div class="col-4">
+  <div class="alert alert-danger">
+    <strong>Danger!</strong> Don't fill in form just use this as a medium to confirm inputs and click on send to save. Click on Add to Form above.
+  </div>
+    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+        <label for="inputCityName">Name</label>
+        <input type="text" class="form-control" id="inputName"  name = "inputName">
+        <small id="nameHelp" class="form-text text-muted">Don't write anything.</small>
+
+        <label for="inputCityLatitude">Latitude</label>
+        <input type="text" name = "inputlatitude" class="form-control" id="inputLatitude">
+
+        <label for="inputCityLongitude">longitude</label>
+        <input name = "inputlongitude" type="text" class="form-control" id="inputLongitude">
+
+
+        <input type = "hidden" name= "moduleAction" value="processName" />
+        <input type="submit" id = "btnSubmit" class="btn btn-primary" value="Send">
+    </form>
+    <ul id="result-list"  class="w-75 p-3" ></ul>
+   
+  </div>
 </div>
+  
+  
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
