@@ -31,9 +31,9 @@ require_once 'includes/functions.php';
   if($moduleAction == 'processName'){ 
         $param_id = $_SESSION["id"];
         // SQL query to select data from database
-        $sql = "INSERT IGNORE INTO cordinaten (name, latitude, longitude,users_id) VALUES (?,?, ?,?)";
+        $sql = "INSERT IGNORE INTO cordinaten (name, latitude, longitude,added_on,users_id) VALUES (?,?,?,?,?)";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([$name, $latitude,$longitude,$param_id]);
+        $stmt->execute([$name, $latitude,$longitude,(new DateTime())->format('Y-m-d H:i:s'),$param_id]);
       
     }
    

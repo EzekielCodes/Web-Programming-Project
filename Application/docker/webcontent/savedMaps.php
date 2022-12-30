@@ -34,53 +34,55 @@ require_once 'includes/functions.php';
 <html>
 <head>
   <title>Saved Maps</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-        crossorigin=""/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
-<body>
-<div class="container pt-5 pb-5">
-  <div class="row justify-content-md-center">
-    <input id="search" style="width: 350px;" type="text">
-    <button type="button" class="ml-5 btn btn-primary" id="search-button">Search</button>
-    <button type="button" class="ml-5 btn btn-primary" id="save-button">Save</button>
-  </div>
-  <div class="row mt-5">
-    <ul id="result-list" class="col-4 list-group">
-    </ul>
-    <div class="col-8">
-      <div id="map-container" style="height: 75vh;"></div>
-    </div>
-  </div>
-</div>
-<div class="col-8">
-    <!-- TABLE CONSTRUCTION -->
-    <table>
+<body style="margin: 50px">
+
+    <div class="container my-5">
+        <h2> Saved Locations</h2>
+        <a class="btn btn-primary" href="addmaps.php" role="button">Add New Location</a>
+        <br>
+
+        <table class ="table">
+          <thead>
             <tr>
+                <th>id</th>
                 <th>Name</th>
                 <th>Latitude</th>
                 <th>Longitude</th>
+                <th>Added On</th>
+
             </tr>
+            </thead>
             <!-- PHP CODE TO FETCH DATA FROM ROWS -->
             <?php
                 // LOOP TILL END OF DATA
                 while($rows=$result->fetch(PDO::FETCH_ASSOC))
                 {
-            ?>
-            <tr>
-                <!-- FETCHING DATA FROM EACH
-                    ROW OF EVERY COLUMN -->
-                <td><?php echo $rows['name'];?></td>
-                <td><?php echo $rows['latitude'];?></td>
-                <td><?php echo $rows['longitude'];?></td>
-            </tr>
-            <?php
+                  echo "
+           
+                  <tbody>
+                    <tr>
+                        <!-- FETCHING DATA FROM EACH
+                            ROW OF EVERY COLUMN -->
+                        <td>$rows[name]</td>
+                        <td>$rows[latitude]</td>
+                        <td>$rows[longitude]</td>
+                        <td>$rows[added_on]</td>
+                        <td>
+                            <a class='btn btn-danger btn-sm' href='delete.php?idcordinaten=$rows[idcordinaten]'>Delete</a>
+                        </td>
+                    </tr>
+           
+            ";
                 }
-            ?>
-        </table>
-</div>
+                ?>
+            
+          </tbody>
+      </table>
+    </div>
+    <!-- TABLE CONSTRUCTION -->
+    
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
