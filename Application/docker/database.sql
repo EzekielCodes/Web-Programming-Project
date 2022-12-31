@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS `cordinaten` (
   `name` VARCHAR(255) NOT NULL,
   `latitude` VARCHAR(255) NOT NULL UNIQUE,
   `longitude` VARCHAR(255) NOT NULL UNIQUE,
+  `visited` ENUM('No', 'Yes') NOT NULL,
   `added_on` DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
   `users_id` INT NOT NULL,
   PRIMARY KEY (`idcordinaten`, `users_id`),
