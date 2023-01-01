@@ -69,18 +69,18 @@ require_once 'includes/functions.php';
 
   <div class="col-4">
   <div class="alert alert-danger">
-    <strong>Danger!</strong> Don't fill in form just use this as a medium to confirm inputs and click on send to save. Click on Add to Form above.
+    <strong>Danger!</strong> You have two options fill in the values of the land manually or search for it and click add to form then send.
   </div>
     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
         <label for="inputCityName">Name</label>
         <input type="text" class="form-control" id="inputName"  name = "inputName">
-        <small id="nameHelp" class="form-text text-muted">Don't write anything.</small>
+        
 
         <label for="inputCityLatitude">Latitude</label>
         <input type="text" name = "inputlatitude" class="form-control" id="inputLatitude">
 
         <label for="inputCityLongitude">longitude</label>
-        <input name = "inputlongitude" type="text" class="form-control" id="inputLongitude">
+        <input name = "inputlongitude" type="text" class="form-control" id="inputLongitude"><br>
 
 
         <input type = "hidden" name= "moduleAction" value="processName" />
