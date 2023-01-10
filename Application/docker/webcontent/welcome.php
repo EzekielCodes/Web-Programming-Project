@@ -24,7 +24,8 @@ $id = $_SESSION["id"];
 </head>
 <body>
     <h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
-    <h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["id"]); ?></b>. This is your id.</h1>
+    <h2>Search for your next travel location in iceland</h2><br>
+    <!-- <h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["id"]); ?></b>. This is your id.</h1> -->
     <p>
         <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
         <a href="addmaps.php" class="btn btn-warning">View Maps</a>

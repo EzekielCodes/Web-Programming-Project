@@ -30,11 +30,19 @@ require_once 'includes/functions.php';
 
   if($moduleAction == 'processName'){ 
         $param_id = $_SESSION["id"];
-        // SQL query to select data from database
-        $sql = "INSERT IGNORE INTO cordinaten (name, latitude, longitude,added_on,visited,users_id) VALUES (?,?,?,?,?,?)";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([$name, $latitude,$longitude,(new DateTime())->format('Y-m-d H:i:s'),"No",$param_id]);
-        $_SESSION['status'] = "Added Successfully";
+
+        if(empty(trim($latitude)) || empty(trim($longitude)) || empty(trim($name))){
+          echo "Please enter all field.";
+        }
+        else{
+             // SQL query to select data from database
+          $sql = "INSERT IGNORE INTO cordinaten (name, latitude, longitude,added_on,visited,users_id) VALUES (?,?,?,?,?,?)";
+          $stmt = $pdo->prepare($sql);
+          $stmt->execute([$name, $latitude,$longitude,(new DateTime())->format('Y-m-d H:i:s'),"No",$param_id]);
+          $_SESSION['status'] = "Added Successfully";
+          echo "Added Successfully";
+        }
+       
       
     }
 
@@ -69,18 +77,18 @@ require_once 'includes/functions.php';
 
   <div class="col-4">
   <div class="alert alert-danger">
-    <strong>Danger!</strong> You have two options fill in the values of the land manually or search for it and click add to form then send.
+    <strong>Danger!</strong> You have two options fill in the values of the location manually or search for it and click add to form then send.
   </div>
     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
         <label for="inputCityName">Name</label>
-        <input type="text" class="form-control" id="inputName"  name = "inputName">
+        <input type="text" required = "true" class="form-control" id="inputName"  name = "inputName">
         
 
         <label for="inputCityLatitude">Latitude</label>
-        <input type="text" name = "inputlatitude" class="form-control" id="inputLatitude">
+        <input type="text" required = "true" name = "inputlatitude" class="form-control" id="inputLatitude">
 
         <label for="inputCityLongitude">longitude</label>
-        <input name = "inputlongitude" type="text" class="form-control" id="inputLongitude"><br>
+        <input name = "inputlongitude" required = "true" type="text" class="form-control" id="inputLongitude"><br>
 
 
         <input type = "hidden" name= "moduleAction" value="processName" />

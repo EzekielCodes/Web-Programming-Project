@@ -48,10 +48,10 @@ require_once 'includes/functions.php';
     
 
     <div class="container my-5">
-        <h2> Saved Locations</h2>
+        <h2> Saved Locations</h2><br>
         <a class="btn btn-primary" href="addmaps.php" role="button">Add New Location</a>
         <a class="btn btn-primary" href="welcome.php" role="button">Home</a>
-        <br>
+        <br> <br> 
         
 
         <table class ="table">
