@@ -171,8 +171,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         .wrapper{ width: 360px; padding: 20px; }
     </style>
 </head>
-<body>
-    <div class="wrapper">
+<body class="h-100 d-flex align-items-center justify-content-center">
+    <div class="wrapper" style="margin: 50px">
         <h2>Sign Up</h2>
         <p>Please fill this form to create an account.</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">

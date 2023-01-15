@@ -1,5 +1,11 @@
 <?php
 session_start();
+
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+  header("location: login.php");
+  exit;
+}
+
 // Include config file
 require_once "includes/config.php";
 
@@ -87,7 +93,7 @@ require_once 'includes/functions.php';
                         </td>
 
                         <td>
-                        <a class='btn btn-danger btn-sm' href='edit.php?idcordinaten=$rows[idcordinaten]'>Edit</a>
+                        <a class='btn btn-warning btn-sm' href='edit.php?idcordinaten=$rows[idcordinaten]'>Edit</a>
                         </td>
                     </tr>
            

@@ -1,6 +1,11 @@
 <?php
 
 session_start();
+
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+  header("location: login.php");
+  exit;
+}
 // Include config file
 require_once "includes/config.php";
 
@@ -72,7 +77,7 @@ require_once 'includes/functions.php';
         integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
         crossorigin=""/>
 </head>
-<body  style="margin: 50px">
+<body  class="h-100 d-flex align-items-center justify-content-center" style="margin: 50px">
     <!-- Modal -->
     <form action=""  method="POST">
     <input type = "hidden" value="<?php echo $idcordinaten; ?>"> 
